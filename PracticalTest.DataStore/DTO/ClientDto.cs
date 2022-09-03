@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PracticalTest.DataStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,5 +13,19 @@ namespace PracticalTest.DataStore.DTO
         public string Surname { get; set; }
         public string Phone { get; set; }
         public  List<LoanDto> Loans { get; set; }
+
+        public static implicit operator ClientDto(Client client)
+        {
+            if (client == null)
+                return null;
+            return new ClientDto()
+            {
+                ID = client.ClientUniqueId,
+                Name = client.Name,
+                Surname = client.Surname,
+                Phone = client.TelephoneNr,
+                Loans = client.Loans.Select(r => (LoanDto)r).ToList()
+            };
+        }
     }
 }

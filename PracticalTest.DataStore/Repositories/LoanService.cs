@@ -20,7 +20,6 @@ namespace PracticalTest.DataStore.Repositories
             _message.Notifications = new List<Notification>();
             _db = dbContext;
         }
-
         public Task<LoanDto> Add(LoanDto loanModel)
         {
             throw new NotImplementedException();

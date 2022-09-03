@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PracticalTest.DataStore.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -19,7 +20,25 @@ namespace PracticalTest.DataStore.DTO
         public DateTime PayoutDate { get; set; }
 
         public string ClientID { get; set; }
-        public  ClientDto Client { get; set; }
+        public ClientDto Client { get; set; }
         public List<InvoiceDto> Invoices { get; set; }
+
+
+        public static implicit operator LoanDto(Loan loan)
+        {
+            if (loan == null)
+                return null;
+
+            return new LoanDto()
+            {
+                ID = loan.ID,
+                Amount = loan.Amount,
+                InterestRate = loan.InterestRate,
+                LoanPeriod = loan.LoanPeriod,
+                ClientID = loan.ClientID,
+                PayoutDate = loan.PayoutDate,
+                Invoices = loan.Invoices.Select(r => (InvoiceDto)r).ToList()
+            };
+        }
     }
 }
