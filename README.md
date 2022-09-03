@@ -6,7 +6,7 @@ Buna benzer Rest api-lerim olub ve database tebii ki, JWT Authenttication her ha
 Microservice yazib sadece library ve project-lere referans vermek micrroservice deyil mence. Asililiq olmamalidir.
 Sabah proyektin mobil versiyasi yazilsa onda nece hemin projectlere parchalanmis Monolit ise yaramayacaq.
 Sadece vaxta gore her hansi bir sirket ucun yazdigim mentiqi ve codu sadece copy past ede bilmezdim.
-Yeni proyekti copy past etseidim qurtarardim.Ancaq qerara aldim ki bele olsun.
+Yeni proyekti copy past etseydim vaxtinda qurtarardim.Ancaq qerara aldim ki bele olsun.
 Yeqin ki, bu taski tamamlayacam.
 
 Zəhmət olmasa email-e feedback gonderersiniz.
