@@ -21,14 +21,15 @@ namespace PracticalTest.DataStore.Repositories
             _db = dbContext;
         }
 
+        public Task<List<InvoiceDto>> GetLoanInvoices(int loanId)
+        {
+            throw new NotImplementedException();
+        }
+
         public Task<BaseInvoiceDetails> DetailsInvoices(InvoiceDetails model)
         {
             throw new NotImplementedException();
         }
 
-        public Task<List<InvoiceDto>> GetLoanInvoices(int loanId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

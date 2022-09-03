@@ -1,5 +1,7 @@
 ﻿using PracticalTest.DataStore.DTO;
 using PracticalTest.DataStore.InvoiceCalculate;
+using PracticalTest.DataStore.Query;
+using PracticalTest.DataStore.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,8 @@ namespace PracticalTest.DataStore.Interfaces
 {
     public interface ILoanService
     {
-        Task<List<InvoiceDetails>> GetLoanList();
+        Task<BaseResponse<LoanDto>> GetLoanListAsync(QueryParameters query);
         Task<InvoiceDetails> GetLoanDetails(int loanId);
-        Task<LoanDto> Add(LoanDto loanModel);
+        Task<LoanDto> AddAsync(LoanDto loanModel);
     }
 }
