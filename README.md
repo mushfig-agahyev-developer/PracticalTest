@@ -9,5 +9,5 @@ Sadece vaxta gore her hansi bir sirket ucun yazdigim mentiqi ve codu sadece copy
 Yeni proyekti copy past etseydim vaxtinda qurtarardim.Ancaq qerara aldim ki bele olsun.
 Yeqin ki, bu taski tamamlayacam.
 
-Zəhmət olmasa email-e feedback gonderersiniz.
+Feedback gozleyirem
 Hörmətlə : Ağayev Müşfiq.
