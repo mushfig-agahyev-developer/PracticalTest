@@ -6,6 +6,6 @@ Microservice yazib sadece library ve project-lere referans vermek micrroservice 
 Sabah proyektin mobil versiyasi yazilsa onda nece hemin projectlere parchalanmis Monolit ise yaramayacaq.
 Bundan evvel buna benzer api-larim olub. Sadece vaxta gore her hansi bir sirket ucun yazdigim mentiqi ve codu sadece copy past ede bilmezdim.
 Yeni proyekti copy past etseidim qurtarardim.Ancaq qerara aldim ki bele olsun.
-Bu task xosuma geldi yeqin ki, onu tamamlayacam.
+Yeqin ki, bu taski tamamlayacam.
 
 Hörmətlə : Ağayev Müşfiq.
