@@ -13,6 +13,6 @@ namespace PracticalTest.DataStore.Interfaces
     {
         Task<BaseResponse<LoanDto>> GetLoanListAsync(QueryParameters query);
         Task<InvoiceDetails> GetLoanDetails(int loanId);
-        Task<LoanDto> AddAsync(LoanDto loanModel);
+        Task<BaseResponse<LoanDto>> AddAsync(LoanDto _dto);
     }
 }

@@ -4,6 +4,7 @@ using PracticalTest.DataStore.DTO;
 using PracticalTest.DataStore.Interfaces;
 using PracticalTest.DataStore.InvoiceCalculate;
 using PracticalTest.DataStore.Messages;
+using PracticalTest.DataStore.Models;
 using PracticalTest.DataStore.Query;
 using PracticalTest.DataStore.Response;
 using System;
@@ -66,9 +67,75 @@ namespace PracticalTest.DataStore.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<LoanDto> AddAsync(LoanDto loanModel)
+        public async Task<BaseResponse<LoanDto>> AddAsync(LoanDto _dto)
         {
-            throw new NotImplementedException();
+            BaseResponse<LoanDto> _model = new BaseResponse<LoanDto>();
+            try
+            {
+                Loan loan = new Loan()
+                {
+                    Amount = _dto.Amount,
+                    InterestRate = _dto.InterestRate,
+                    LoanPeriod = _dto.LoanPeriod,
+                    PayoutDate = _dto.PayoutDate,
+                    ClientID = _dto.ClientID
+                };
+
+                var _invoices = _dto.Invoices
+                    .Select(r =>
+                    new Loan
+                    {
+                        Amount = r.Amount,
+                        InterestRate = r.InterestRate,
+                        ClientID = r.ClientID,
+                        LoanPeriod = r.LoanPeriod,
+                        PayoutDate = r.PayoutDate
+                    }).ToList();
+
+                for (int i = 0; i < _invoices.Count; i++)
+                    await _db.Loans.AddAsync(_invoices[i]);
+
+                await _db.Loans.AddAsync(loan);
+
+                if (await _db.SaveChangesAsync() > 0)
+                {
+                    _model.Message.Notifications.Add(new Notification
+                    {
+                        Type = (byte)NotificationType.Sussess,
+                        Content = ""
+                    });
+                    return _model;
+                }
+                else
+                {
+                    _model.Message.Notifications.Add(new Notification
+                    {
+                        Type = (byte)NotificationType.Error,
+                        Content = "When data recording same get wrong!"
+                    });
+                    return _model;
+                }
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                _model.Message.Notifications.Add(new Notification
+                {
+                    Type = (byte)NotificationType.Error,
+                    Content = ex.ToString()
+                });
+                return _model;
+#else
+        _model.Message.Notifications.Add(new Notification
+                {
+                    Type = (byte)NotificationType.Error,
+                    Content = "Someone get wrong!"
+                });
+                return _model;
+#endif
+
+            }
+
         }
     }
 }
