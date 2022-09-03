@@ -1,7 +1,7 @@
 # PracticalTest
 Salam. Deadline-in bitmeyine yarim saat qalib.
 Yarim saata catdirmaq mumkun deyil.
-Buna benzer Rest api yazmisam ve database tebii ki, JWT Authenttication her hansi OAuth ola biler vasitesi ile Corslarda icaze vermek serti ile datani elde ede biler.
+Buna benzer Rest api-leri olub ve database tebii ki, JWT Authenttication her hansi OAuth ola biler vasitesi ile Corslarda icaze vermek serti ile datani elde ede biler.
 Microservice yazib sadece library ve project-lere referans vermek micrroservice deyil mence. Asililiq olmamalidir.
 Sabah proyektin mobil versiyasi yazilsa onda nece hemin projectlere parchalanmis Monolit ise yaramayacaq.
 Sadece vaxta gore her hansi bir sirket ucun yazdigim mentiqi ve codu sadece copy past ede bilmezdim.
