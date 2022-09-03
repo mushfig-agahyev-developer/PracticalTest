@@ -6,6 +6,7 @@ using PracticalTest.DataStore.Interfaces;
 using PracticalTest.DataStore.Messages;
 using PracticalTest.DataStore.Models;
 using PracticalTest.DataStore.Query;
+using PracticalTest.DataStore.Response;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,17 +26,40 @@ namespace PracticalTest.DataStore.Repositories
             _db = dbContext;
         }
 
-        public async Task<IQueryable<ClientDto>> GetAllClientsAsync(QueryParameters query)
+        public async Task<BaseResponse<ClientDto>> GetAllClientsAsync(QueryParameters query)
         {
+            BaseResponse<ClientDto> _model = new BaseResponse<ClientDto>();
 
-                List<Client> _clientsd = await _db.Clients.AsNoTracking()
-                    .Where(r => query.Query == null || (r.Name.Contains(query.Query, StringComparison.OrdinalIgnoreCase) ||
-                    r.Surname.Contains(query.Query, StringComparison.OrdinalIgnoreCase))).Include(r => r.Loans)
-                    .Skip(query.PageCount * (query.Page - 1)).Take(query.PageCount).ToListAsync();
-                  
-            ClientDto clientDto = Client client;
+            try
+            {
+                _model.Datas = await _db.Clients.AsNoTracking()
+                           .Where(r => query.Query == null || (r.Name.Contains(query.Query, StringComparison.OrdinalIgnoreCase) ||
+                           r.Surname.Contains(query.Query, StringComparison.OrdinalIgnoreCase))).Include(r => r.Loans)
+                           .Skip(query.PageCount * (query.Page - 1)).Take(query.PageCount)
+                           .Select(r => (ClientDto)r).ToListAsync();
 
-            return null;
+                return _model;
+            }
+            catch (Exception ex)
+            {
+#if DEBUG
+                _model.Message.Notifications.Add(new Notification
+                {
+                    Type = (byte)NotificationType.Error,
+                    Content = ex.ToString()
+                });
+                return _model;
+#else
+        _model.Message.Notifications.Add(new Notification
+                {
+                    Type = (byte)NotificationType.Error,
+                    Content = "Someone get wrong!"
+                });
+                return _model;
+#endif
+
+            }
+
         }
 
         public ClientDto GetClientByIDAsync(int id)
