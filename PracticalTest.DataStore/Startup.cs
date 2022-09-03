@@ -8,7 +8,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using PracticalTest.DataStore.DAL;
+using PracticalTest.DataStore.Interfaces;
+using PracticalTest.DataStore.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,37 +28,41 @@ namespace PracticalTest.DataStore
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-            //services.AddSwaggerGen(c =>
-            //{
-            //    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PracticalTest.DataStore", Version = "v1" });
-            //});
+            services.AddControllers().AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddMvc(option => option.EnableEndpointRouting = false);
 
             services.AddDbContext<AppStore>(options =>
             {
                 options.UseSqlServer(Configuration["ConnectionString:DefaultConnection"]);
             });
+
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<ILoanService, LoanService>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
+            /*
+            services.AddCors(o => o.AddPolicy("PracticalTest", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
+            */
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PracticalTest.DataStore v1"));
             }
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            // app.UseCors("PracticalTest");
 
             app.UseEndpoints(endpoints =>
             {
