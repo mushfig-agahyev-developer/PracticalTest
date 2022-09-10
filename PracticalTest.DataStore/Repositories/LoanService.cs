@@ -17,12 +17,14 @@ namespace PracticalTest.DataStore.Repositories
     public class LoanService : ILoanService
     {
         private readonly AppStore _db;
+        private readonly InvoiceService _invoiceService;
         public Message _message { get; set; }
-        public LoanService(AppStore dbContext)
+        public LoanService(AppStore dbContext, InvoiceService invoiceService)
         {
             _message = new Message();
             _message.Notifications = new List<Notification>();
             _db = dbContext;
+            _invoiceService = invoiceService;
         }
 
         public async Task<BaseResponse<LoanDto>> GetLoanListAsync(QueryParameters query)
@@ -67,9 +69,9 @@ namespace PracticalTest.DataStore.Repositories
             throw new NotImplementedException();
         }
 
-        public async Task<BaseResponse<LoanDto>> AddAsync(LoanDto _dto)
+        public async Task<SaveResponse> SaveAsync(LoanDto _dto)
         {
-            BaseResponse<LoanDto> _model = new BaseResponse<LoanDto>();
+            SaveResponse _model = new SaveResponse();
             try
             {
                 Loan loan = new Loan()
@@ -81,40 +83,11 @@ namespace PracticalTest.DataStore.Repositories
                     ClientID = _dto.ClientID
                 };
 
-                var _invoices = _dto.Invoices
-                    .Select(r =>
-                    new Loan
-                    {
-                        Amount = r.Amount,
-                        InterestRate = r.InterestRate,
-                        ClientID = r.ClientID,
-                        LoanPeriod = r.LoanPeriod,
-                        PayoutDate = r.PayoutDate
-                    }).ToList();
-
-                for (int i = 0; i < _invoices.Count; i++)
-                    await _db.Loans.AddAsync(_invoices[i]);
+                loan.Invoices = await _invoiceService.GetLoanInvoices(_dto);
 
                 await _db.Loans.AddAsync(loan);
-
-                if (await _db.SaveChangesAsync() > 0)
-                {
-                    _model.Message.Notifications.Add(new Notification
-                    {
-                        Type = (byte)NotificationType.Sussess,
-                        Content = ""
-                    });
-                    return _model;
-                }
-                else
-                {
-                    _model.Message.Notifications.Add(new Notification
-                    {
-                        Type = (byte)NotificationType.Error,
-                        Content = "When data recording same get wrong!"
-                    });
-                    return _model;
-                }
+                _model.Save = await _db.SaveChangesAsync() > 0;
+                return _model;
             }
             catch (Exception ex)
             {

@@ -23,16 +23,12 @@ namespace PracticalTest.DataStore.Repositories
             _db = dbContext;
         }
 
-        public Task<List<InvoiceDto>> GetLoanInvoices(int loanId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<bool> SaveInvoiceItems(LoanDto loanDto)
+        public async Task<List<Invoice>> GetLoanInvoices(LoanDto loanDto)
         {
             if (loanDto == null)
-                return false;
+                return null;
 
+            List<Invoice> invoices = new List<Invoice>();
             for (var _month = 1; _month <= loanDto.LoanPeriod; _month++)
             {
                 Invoice invoice = new Invoice();
@@ -43,9 +39,9 @@ namespace PracticalTest.DataStore.Repositories
                 invoice.DueDate = loanDto.PayoutDate.AddMonths(_month).Date;
                 invoice.Amount = CalcPayment(loanDto.Amount, loanDto.InterestRate, loanDto.LoanPeriod);
 
-                await _db.Invoices.AddAsync(invoice);
+                invoices.Add(invoice);
             };
-            return await _db.SaveChangesAsync() > 0;
+            return invoices;
         }
 
         public async Task<LoanDto> GenerateInvoiceItems(LoanDto loanDto)

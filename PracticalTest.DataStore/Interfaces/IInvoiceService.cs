@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using PracticalTest.DataStore.InvoiceCalculate;
+using PracticalTest.DataStore.Models;
 
 namespace PracticalTest.DataStore.Interfaces
 {
     public interface IInvoiceService
     {
-        Task<List<InvoiceDto>> GetLoanInvoices(int loanId);
-        Task<LoanDto> GenerateInvoiceItems(LoanDto model);
+        public Task<List<Invoice>> GetLoanInvoices(LoanDto loanDto);
+        Task<List<Invoice>> GetInvoiceItems(LoanDto model);
     }
 }
