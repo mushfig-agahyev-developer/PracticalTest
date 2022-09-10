@@ -28,6 +28,26 @@ namespace PracticalTest.DataStore.Repositories
             throw new NotImplementedException();
         }
 
+        public async Task<bool> SaveInvoiceItems(LoanDto loanDto)
+        {
+            if (loanDto == null)
+                return false;
+
+            for (var _month = 1; _month <= loanDto.LoanPeriod; _month++)
+            {
+                Invoice invoice = new Invoice();
+                int _number = await _db.Invoices.CountAsync();
+
+                invoice.OrderNr = _month;
+                invoice.InvoiceNr = _number / 10000 > 0 ? _number.ToString().PadLeft(4, '0') : (_number + _month).ToString();
+                invoice.DueDate = loanDto.PayoutDate.AddMonths(_month).Date;
+                invoice.Amount = CalcPayment(loanDto.Amount, loanDto.InterestRate, loanDto.LoanPeriod);
+
+                await _db.Invoices.AddAsync(invoice);
+            };
+            return await _db.SaveChangesAsync() > 0;
+        }
+
         public async Task<LoanDto> GenerateInvoiceItems(LoanDto loanDto)
         {
             var _monthlyPayment = CalcPayment(loanDto.Amount, loanDto.InterestRate, loanDto.LoanPeriod);
