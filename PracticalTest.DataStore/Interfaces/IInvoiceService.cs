@@ -11,6 +11,6 @@ namespace PracticalTest.DataStore.Interfaces
     public interface IInvoiceService
     {
         public Task<List<Invoice>> GetLoanInvoices(LoanDto loanDto);
-        Task<List<Invoice>> GetInvoiceItems(LoanDto model);
+        public Task<List<LoanDto>> GetInvoiceItems(LoanDto model);
     }
 }

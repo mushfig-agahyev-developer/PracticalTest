@@ -99,6 +99,5 @@ namespace PracticalTest.DataStore.Repositories
         private decimal CalcMonthyRate(decimal InterestRate)=> InterestRate / 1200;
 
         private decimal CalcMonthlyInterest(decimal balance, decimal monthlyRate) => balance * monthlyRate;
-
     }
 }
