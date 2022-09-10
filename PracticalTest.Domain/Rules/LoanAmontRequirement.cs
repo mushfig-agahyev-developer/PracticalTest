@@ -5,10 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-/// <summary>
-/// Burda kredit verilerken musterinin ayliq maas gostericisinin gotureceyi kreditin meblegi ile uygunlunu.
-/// Gecikmeleri ve s. emeliyyatlari yerine yetirmek olar
-/// </summary>
 namespace PracticalTest.Domain.Rules
 {
     public class LoanAmontRequirement : IBaseLoanRequirement
