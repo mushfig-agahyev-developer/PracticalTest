@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,7 +25,22 @@ namespace PracticalTest.MVC
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddControllers();
+
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+            //.AddNewtonsoftJson(opt => opt.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddHttpClient();
+
+            services.AddDistributedMemoryCache();
+            services.AddSession(r => r.IdleTimeout = TimeSpan.FromDays(7));
+
+            services.AddCors(o => o.AddPolicy("PracticalTest", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +61,7 @@ namespace PracticalTest.MVC
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors("PracticalTest");
 
             app.UseAuthorization();
 

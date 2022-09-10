@@ -51,14 +51,13 @@ namespace PracticalTest.DataStore
 
             services.AddScoped<List<IBaseLoanRequirement>>(provider => requirements);
 
-            /*
             services.AddCors(o => o.AddPolicy("PracticalTest", builder =>
             {
                 builder.AllowAnyOrigin()
                        .AllowAnyMethod()
                        .AllowAnyHeader();
             }));
-            */
+          
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -72,7 +71,7 @@ namespace PracticalTest.DataStore
 
             app.UseRouting();
 
-            // app.UseCors("PracticalTest");
+             app.UseCors("PracticalTest");
 
             app.UseEndpoints(endpoints =>
             {

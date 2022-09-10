@@ -2,7 +2,6 @@
 using PracticalTest.DataStore.DAL;
 using PracticalTest.DataStore.DTO;
 using PracticalTest.DataStore.Interfaces;
-using PracticalTest.DataStore.InvoiceCalculate;
 using PracticalTest.DataStore.Messages;
 using PracticalTest.DataStore.Models;
 using System;
@@ -44,6 +43,7 @@ namespace PracticalTest.DataStore.Repositories
             return invoices;
         }
 
+        
         public async Task<LoanDto> GenerateInvoiceItems(LoanDto loanDto)
         {
             var _monthlyPayment = CalcPayment(loanDto.Amount, loanDto.InterestRate, loanDto.LoanPeriod);
@@ -96,8 +96,11 @@ namespace PracticalTest.DataStore.Repositories
             return Convert.ToDecimal(payment);
         }
 
-        private decimal CalcMonthyRate(decimal InterestRate)=> InterestRate / 1200;
+        private decimal CalcMonthyRate(decimal InterestRate) => InterestRate / 1200;
 
         private decimal CalcMonthlyInterest(decimal balance, decimal monthlyRate) => balance * monthlyRate;
+
+        
+      
     }
 }
