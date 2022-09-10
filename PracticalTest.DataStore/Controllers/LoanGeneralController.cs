@@ -21,27 +21,12 @@ namespace PracticalTest.DataStore.Controllers
         }
 
 
-        [HttpPost]
-        [Route("uplcordinates")]
-        public async Task<ActionResult> ApplyLoan([FromBody] LoanDto model)
-        {
-            if (ModelState.IsValid)
-            {
-                var loanModel = new Loan()
-                {
-                    Amount = model.Amount,
-                    InterestRate = model.InterestRate,
-                    LoanPeriod = model.LoanPeriod,
-                    PayoutDate = model.PayoutDate,
-                    ClientID = model.ClientID,
-                    Invoices = _invoiceRepository.CalculateInvoices(model).Result.InvoicesList
-                };
+        //[HttpPost]
+        //[Route("uplcordinates")]
+        //public async Task<ActionResult> ApplyLoan([FromBody] LoanDto model)
+        //{
+          
 
-                var resultModel = await _loanRepository.Add(loanModel);
-
-                return RedirectToAction("Details", new { loanId = resultModel.Id });
-
-            }
-        }
+        //}
     }
 }

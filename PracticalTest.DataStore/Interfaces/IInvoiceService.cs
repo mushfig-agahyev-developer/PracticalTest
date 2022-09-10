@@ -10,6 +10,6 @@ namespace PracticalTest.DataStore.Interfaces
     public interface IInvoiceService
     {
         Task<List<InvoiceDto>> GetLoanInvoices(int loanId);
-        Task<BaseInvoiceDetails> GenerateInvoiceItems(LoanDto model);
+        Task<InvoiceDto> GenerateInvoiceItems(LoanDto model);
     }
 }

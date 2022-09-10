@@ -1,5 +1,4 @@
-﻿using PracticalTest.DataStore.DTO;
-using PracticalTest.Domain.Models;
+﻿using PracticalTest.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
