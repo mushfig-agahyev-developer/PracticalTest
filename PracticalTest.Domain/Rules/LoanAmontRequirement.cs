@@ -1,5 +1,4 @@
-﻿using PracticalTest.DataStore.DTO;
-using PracticalTest.Domain.Models;
+﻿using PracticalTest.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace PracticalTest.Domain.Rules
 
             switch (loanAmount)
             {
-                case decimal n when (n <= 50000 && n <= 500):
+                case float n when (n <= 50000 && n >= 500):
                     // Loans from $50,000 to $1,000,000 are OK
                     return true;
                 default:
