@@ -24,7 +24,6 @@ namespace PracticalTest.Domain.Rules
             switch (loanAmount)
             {
                 case float n when (n <= 50000 && n >= 500):
-                    // Loans from $50,000 to $1,000,000 are OK
                     return true;
                 default:
                     return false;
