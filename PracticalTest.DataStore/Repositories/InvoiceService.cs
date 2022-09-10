@@ -26,10 +26,9 @@ namespace PracticalTest.DataStore.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<BaseInvoiceDetails> DetailsInvoices(InvoiceDetails model)
+        public Task<BaseInvoiceDetails> CreateInvoiceItems(InvoiceDatas model)
         {
             throw new NotImplementedException();
         }
-
     }
 }

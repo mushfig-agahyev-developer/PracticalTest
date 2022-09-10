@@ -11,6 +11,7 @@ namespace PracticalTest.DataStore.Models
         {
             ClientUniqueId = Guid.NewGuid().ToString();
         }
+        
         public string ClientUniqueId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }

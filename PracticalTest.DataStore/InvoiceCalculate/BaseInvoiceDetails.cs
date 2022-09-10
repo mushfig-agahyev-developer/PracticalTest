@@ -8,7 +8,7 @@ namespace PracticalTest.DataStore.InvoiceCalculate
 {
     public class BaseInvoiceDetails
     {
-        public List<InvoiceDto> InvoicesList { get; set; }
+        public List<InvoiceDto> InvoiceItem { get; set; }
         public decimal Total { get; set; }
     }
 }

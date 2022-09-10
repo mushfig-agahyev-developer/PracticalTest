@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PracticalTest.DataStore.InvoiceCalculate
 {
-    public class InvoiceDetails
+    public class InvoiceDatas
     {
         public string ClientId { get; set; }
         public string TelephoneNr { get; set; }
@@ -22,7 +22,7 @@ namespace PracticalTest.DataStore.InvoiceCalculate
 
         [Required(ErrorMessage = "Payout Date cannot be empty")]
         public DateTime PayoutDate { get; set; }
-        public List<InvoiceDetails> InvoicesList { get; set; }
+        public List<InvoiceDatas> InvoicesList { get; set; }
 
         public decimal Total { get; set; }
     }

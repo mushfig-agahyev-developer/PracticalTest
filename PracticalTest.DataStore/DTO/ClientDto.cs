@@ -12,6 +12,7 @@ namespace PracticalTest.DataStore.DTO
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Phone { get; set; }
+        public float Salary { get; set; }
         public  List<LoanDto> Loans { get; set; }
 
         public static implicit operator ClientDto(Client client)

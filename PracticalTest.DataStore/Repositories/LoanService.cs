@@ -62,7 +62,7 @@ namespace PracticalTest.DataStore.Repositories
 
         }
 
-        public Task<InvoiceDetails> GetLoanDetails(int loanId)
+        public Task<InvoiceDatas> GetLoanDetails(int loanId)
         {
             throw new NotImplementedException();
         }

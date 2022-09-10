@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using PracticalTest.DataStore.DAL;
 using PracticalTest.DataStore.Interfaces;
 using PracticalTest.DataStore.Repositories;
+using PracticalTest.Domain.Rules;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,15 @@ namespace PracticalTest.DataStore
             services.AddScoped<IClientService, ClientService>();
             services.AddScoped<ILoanService, LoanService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
+
+            var requirements = new List<IBaseLoanRequirement>()
+            {
+                new LoanAmontRequirement(),
+                new LoanSalaryCompare(),
+            };
+
+            services.AddScoped<List<IBaseLoanRequirement>>(provider => requirements);
+
             /*
             services.AddCors(o => o.AddPolicy("PracticalTest", builder =>
             {
