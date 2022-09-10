@@ -9,7 +9,10 @@ namespace PracticalTest.DataStore.DTO
 {
     public class InvoiceDto
     {
+      
         public int ID { get; set; }
+        public string InvoiceNr { get; set; }
+        public int OrderNr { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
@@ -21,7 +24,7 @@ namespace PracticalTest.DataStore.DTO
 
         public string ClientID { get; set; }
         public ClientDto Client { get; set; }
-        public List<InvoiceDto> Invoices { get; set; }
+        public InvoiceItem InvoiceItem { get; set; }
 
         public static implicit operator InvoiceDto(Invoice _invoice)
         {
@@ -38,5 +41,14 @@ namespace PracticalTest.DataStore.DTO
                 LoanID = _invoice.LoanID
             };
         }
+    }
+
+    public class InvoiceItem
+    {
+        public int Month { get; set; }
+        public decimal Principal { get; set; }
+        public decimal Interest { get; set; }
+        public decimal TotalInterest { get; set; }
+        public decimal Balance { get; set; }
     }
 }

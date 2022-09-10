@@ -15,6 +15,7 @@ namespace PracticalTest.DataStore.Response
         public List<T> Datas { get; set; }
         public T Model { get; set; }//when action is create or edit that return Model for edit.
         public Message Message { get; set; }
+        public dynamic Data { get; set; }
     }
 
 }

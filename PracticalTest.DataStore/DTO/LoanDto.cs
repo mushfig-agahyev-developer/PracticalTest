@@ -22,7 +22,9 @@ namespace PracticalTest.DataStore.DTO
         public string ClientID { get; set; }
         public ClientDto Client { get; set; }
         public List<InvoiceDto> Invoices { get; set; }
-
+        //public decimal MonthlyPayment { get; set; }
+        public decimal TotalInterest { get; set; }
+        public decimal TotalCost { get; set; }
 
         public static implicit operator LoanDto(Loan loan)
         {

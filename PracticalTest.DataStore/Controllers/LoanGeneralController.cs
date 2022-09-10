@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PracticalTest.DataStore.DTO;
+using PracticalTest.DataStore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +23,25 @@ namespace PracticalTest.DataStore.Controllers
 
         [HttpPost]
         [Route("uplcordinates")]
-        public async Task<ActionResult> UplCordinates()
+        public async Task<ActionResult> ApplyLoan([FromBody] LoanDto model)
         {
-
-
-            if (true)
+            if (ModelState.IsValid)
             {
-                return StatusCode(200);
-            }
-            else
-            {
-                return StatusCode(400);
-            }
+                var loanModel = new Loan()
+                {
+                    Amount = model.Amount,
+                    InterestRate = model.InterestRate,
+                    LoanPeriod = model.LoanPeriod,
+                    PayoutDate = model.PayoutDate,
+                    ClientID = model.ClientID,
+                    Invoices = _invoiceRepository.CalculateInvoices(model).Result.InvoicesList
+                };
 
+                var resultModel = await _loanRepository.Add(loanModel);
+
+                return RedirectToAction("Details", new { loanId = resultModel.Id });
+
+            }
         }
     }
 }

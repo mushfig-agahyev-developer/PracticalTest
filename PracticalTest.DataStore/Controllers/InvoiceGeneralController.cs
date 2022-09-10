@@ -22,7 +22,6 @@ namespace PracticalTest.DataStore.Controllers
         [Route("uplcordinates")]
         public async Task<ActionResult> InvoiceCalculate()
         {
-            var invoices = await _invoiceService.GetLoanInvoices();
 
             if (true)
             {
